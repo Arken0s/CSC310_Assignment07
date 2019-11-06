@@ -1,12 +1,11 @@
-import java.util.Iterator;
 import java.util.LinkedList;
 
-class DFSGraph
+class DFTGraph
 {
-    private LinkedList<Integer> adjLists[];
+    private LinkedList<Integer>[] adjLists;
     private int vertices;
 
-    DFSGraph(int vertices) //Constructs Basic Graph based on vertices
+    DFTGraph(int vertices) //Constructs Basic Graph based on vertices
     {
         this.vertices = vertices;
         adjLists = new LinkedList[vertices];
@@ -19,22 +18,19 @@ class DFSGraph
         adjLists[node].add(child);
     }
 
-    void DFSBegin(int node) //Separated the two functions as it was easier to manage the boolean array this way.
+    void DFTBegin(int node) //Separated the two functions as it was easier to manage the boolean array this way.
     {
         boolean nodeVisited[] = new boolean[this.vertices]; //Used boolean array instead of setting a value to -1 as I felt it was cleaner.
-        DFSRecursion(node, nodeVisited);
+        DFTRecursion(node, nodeVisited);
     }
 
-    void DFSRecursion(int node, boolean[] nodeVisited)
+    void DFTRecursion(int node, boolean[] nodeVisited)
     {
         nodeVisited[node] = true;
         System.out.println("Visiting node " + node + ".");
-        Iterator<Integer> i = adjLists[node].listIterator();
-        while (i.hasNext())
-        {
-            int child = i.next();
+        for (int child : adjLists[node]) {
             if (!nodeVisited[child])
-                DFSRecursion(child, nodeVisited);
+                DFTRecursion(child, nodeVisited);
         }
     }
 
@@ -44,7 +40,4 @@ class DFSGraph
         }
     }
 
-    public static void main(String[] args) {
-
-    }
 }
